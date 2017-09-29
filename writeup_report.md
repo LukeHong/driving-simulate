@@ -18,13 +18,11 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[image1]: ./examples/center.jpg "Center Image"
+[image2]: ./examples/left.jpg "Left Image"
+[image3]: ./examples/right.jpg "Right Image"
+[image4]: ./examples/center_driving.jpg "Center Driving"
+[image5]: ./examples/shadow.png "Shadow of Tree"
 
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -108,22 +106,34 @@ The final model architecture (model.py lines 64-76) consisted of a convolution n
 
 ####3. Creation of the Training Set & Training Process
 
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
+In order to get the angle precisely, I used a XBOX controller to drive the car in recording training data.
 
-![alt text][image2]
+I used the images of front side camera and both of left and right side camera with slightly steering angle correction.
 
-I also used the images of left side and right side camera with slightly steering angle correction.
+![Front side][image1]
+![Left side][image2]
+![Right side][image3]
 
-![alt text][image3]
-![alt text][image4]
-![alt text][image5]
-
-Then I recorded two more lap with center lane driving but the oppisite direction to balance the data between left turn and right turn.
-
-Futher more, I record recovery laps that turn to the center of the lane from side for each directions.
+I first recorded two laps in original direction and two laps in oppisite direction in the center of the lane to balance the data of left turn and right turn.
 
 To augment the data set, I also flipped images and angles of center image thinking that this would more balance.
 
+![Center Driving][image4]
+
 After collectiong data, I randomly shuffled the data set and put 20% of the data into a validation set. And cropping the top and the bottom as useless part of the images. 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 3 because the loss increasing after it. I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. I used an adam optimizer so that manually training the learning rate wasn't necessary.
+
+I train the first model in 3 epoch, then I found that the car can barely recovery from the edge of lane. So I record more data about recovery to center.
+
+In the second model trained in 5 epoch , the car could recovery to center but it was like a drunk man that keep driving bias from the left side to the right side. Then I removed the dataset and did it again. 
+
+After few times of tring and tuning, I got a model that drive well in result. I trained it in 10 epoch.
+
+
+Something is very interesting that I found the car will avoid to "Hit" the shadow of tree, I thought the reason of this is that the color of that part of lane in different from others, so the network might thinks it some unsafe area.
+
+![Shadow of tree][image5]
+
+
+
