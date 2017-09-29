@@ -21,8 +21,8 @@ The goals / steps of this project are the following:
 [image1]: ./examples/center.jpg "Center Image"
 [image2]: ./examples/left.jpg "Left Image"
 [image3]: ./examples/right.jpg "Right Image"
-[image4]: ./examples/center_driving.jpg "Center Driving"
-[image5]: ./examples/shadow.png "Shadow of Tree"
+[image4]: ./examples/center_driving.JPG "Center Driving"
+[image5]: ./examples/shadow.PNG "Shadow of Tree"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
